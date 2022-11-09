@@ -1,0 +1,63 @@
+﻿@model List<Corrida>
+
+@{
+    ViewData["Title"] = "Corridas";
+}
+
+<h1>Corridas</h1>
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<a asp-action="cadastrar" class="btn btn-sm btn-outline-primary">Cadastrar</a>
+
+<table class="table table-striped">
+    <tr>
+        <th>Motorista</th>
+        <th>Passageiro</th>
+        <th>Origem</th>
+        <th>Destino</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th></th>
+    </tr>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.Motorista.Nome</td>
+            <td>@v.Passageiro.Nome</td>
+            <td>@v.Origem</td>
+            <td>@v.Destino</td>
+            <td>@v.Data</td>
+            <td>@v.Valor</td>
+            <td>
+                <a asp-action="editar" class="btn btn-dark btn-sm"
+               asp-route-id="@v.CorridaId">Editar</a>
+                <button onclick="CorridaId.value = @v.CorridaId" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
+
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o ponto?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="excluir">
+                    <input type="hidden" name="id" id="CorridaId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

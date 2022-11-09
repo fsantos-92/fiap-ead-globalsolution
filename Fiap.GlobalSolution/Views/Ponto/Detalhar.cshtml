@@ -1,0 +1,69 @@
+﻿@model PontoTrabalho
+@{
+    ViewData["Title"] = "Detalhes Ponto";
+}
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<h1>Detalhes Ponto de Trabalho</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>@Model.Nome</td>
+        <td>@Model.Endereco</td>
+    </tr>
+
+</table>
+
+<h2>Motoristas</h2>
+
+<form class="row row-cols-lg-auto g-3 mb-3 align-items-center" asp-action="adicionar">
+    <input type="hidden" name="PontoTrabalhoId" value="@Model.PontoTrabalhoId" />
+    <div class=col-12>
+        <select class="form-select" name="MotoristaId" asp-items="@ViewBag.motoristas">
+            <option>Selecione</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-success">Adicionar</button>
+    </div>
+</form>
+
+
+<ul class="list-group mb-3">
+    @foreach (var item in ViewBag.motoristaPonto)
+    {
+            <li class="list-group-item">
+                <span>@item.Nome</span>
+                <button onclick="MotoristaId.value = @item.MotoristaId" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
+            </li>
+    }
+</ul>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o motorista do ponto?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="RemoverMotorista">
+                    <input type="hidden" name="pontoTrabalhoId" id="PontoTrabalhoId" value=@Model.PontoTrabalhoId />
+                    <input type="hidden" name="motoristaId" id="MotoristaId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

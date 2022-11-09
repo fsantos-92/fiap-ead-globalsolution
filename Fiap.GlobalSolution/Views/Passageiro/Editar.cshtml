@@ -1,0 +1,19 @@
+﻿@model Passageiro
+
+@{
+    ViewData["Title"] = "Edição de Passageiro";
+}
+
+<h1>Edição de Passageiro</h1>
+
+<form asp-action="editar">
+
+    <input asp-for="PassageiroId" />
+
+    <partial name="_Form" />
+
+    <input type="submit" value="Editar" class="btn btn-primary" />
+
+    <a asp-action="index" asp-route-id=Passageiro class="btn btn-light">Cancelar</a>
+
+</form>

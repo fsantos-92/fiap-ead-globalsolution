@@ -1,0 +1,14 @@
+﻿@model Motorista
+
+@{
+	ViewData["Title"] = "Cadastro de veículo";
+}
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<form asp-action="cadastrar">
+	<input asp-for="MotoristaId" type="hidden" value=@ViewBag.Motorista.MotoristaId class="form-control" />
+	<partial name="_Form"/>
+	<input type="submit" value="Cadastrar" class="btn btn-primary"/>
+	<a asp-action="Index" asp-route-id=@ViewBag.Motorista.MotoristaId class="btn btn-dark btn-sm">Voltar</a>
+</form>

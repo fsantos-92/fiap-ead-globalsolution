@@ -1,0 +1,21 @@
+﻿@model Veiculo
+
+@{
+    ViewData["Title"] = "Edição de Veículo";
+}
+
+<h1>Edição de Veículo</h1>
+
+<form asp-action="editar">
+
+    <input asp-for="VeiculoId"/>
+
+    <input asp-for="MotoristaId"/>
+
+    <partial name="_Form"/>
+
+    <input type="submit" value="Editar" class="btn btn-primary" />
+
+    <a asp-action="index" class="btn btn-light">Cancelar</a>
+
+</form>

@@ -1,0 +1,12 @@
+﻿@model Passageiro
+
+@{
+	ViewData["Title"] = "Cadastro de Passageiro";
+}
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<form asp-action="cadastrar">
+	<partial name="_Form"/>
+	<input type="submit" value="Cadastrar" class="btn btn-primary"/>
+</form>

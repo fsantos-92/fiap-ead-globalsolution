@@ -1,0 +1,59 @@
+﻿@model List<Veiculo>
+@{
+    ViewData["Title"] = "Veiculos";
+}
+
+<h1>Veiculos</h1>
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<a asp-action="cadastrar" asp-route-id=@ViewBag.Motorista.MotoristaId class="btn btn-sm btn-outline-primary">Cadastrar novo veículo</a>
+
+<table class="table table-striped">
+    <tr>
+        <th>Modelo</th>
+        <th>Ano</th>
+        <th>Cor</th>
+        <th>Placa</th>
+        <th></th>
+    </tr>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.Modelo</td>
+            <td>@v.Ano</td>
+            <td>@v.Cor</td>
+            <td>@v.Placa</td>
+            <td>
+                <a asp-action="editar" class="btn btn-dark btn-sm"
+               asp-route-id="@v.VeiculoId">Editar</a>
+                <button onclick="VeiculoId.value = @v.VeiculoId" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
+
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o veículo?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="excluir">
+                    <input type="hidden" name="id" id="VeiculoId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+﻿@model List<PontoTrabalho>
+
+@{
+    ViewData["Title"] = "Pontos de Trabalho";
+}
+
+<h1>Pontos de trabalho</h1>
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+
+<a asp-action="cadastrar" class="btn btn-sm btn-outline-primary">Cadastrar</a>
+
+<table class="table table-striped">
+    <tr>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th></th>
+    </tr>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.Nome</td>
+            <td>@v.Endereco</td>
+            <td>
+                <a asp-action="Detalhar" class="btn btn-warning btn-sm"
+               asp-route-id="@v.PontoTrabalhoId">Detalhes</a>
+                <a asp-action="editar" class="btn btn-dark btn-sm"
+               asp-route-id="@v.PontoTrabalhoId">Editar</a>
+                <button onclick="PontoTrabalhoId.value = @v.PontoTrabalhoId" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
+
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o ponto?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="excluir">
+                    <input type="hidden" name="id" id="PontoTrabalhoId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

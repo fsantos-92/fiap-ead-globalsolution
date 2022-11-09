@@ -1,0 +1,19 @@
+﻿@model PontoTrabalho
+
+@{
+    ViewData["Title"] = "Edição de ponto de trabalho";
+}
+
+<h1>Edição de ponto de trabalho</h1>
+
+<form asp-action="editar">
+
+    <input asp-for="PontoTrabalhoId" />
+
+    <partial name="_Form" />
+
+    <input type="submit" value="Editar" class="btn btn-primary" />
+
+    <a asp-action="index" class="btn btn-light">Cancelar</a>
+
+</form>

@@ -1,0 +1,36 @@
+﻿@model Corrida
+
+<div class=mb-3>
+    <label asp-for="Motorista.Nome" />
+    <span>Motorista</span>
+    <select asp-for="Motorista" class="form-select" name="MotoristaId" asp-items="@ViewBag.motoristas">
+        <option>Selecione</option>
+    </select>
+</div>
+<div class=mb-3>
+    <label asp-for="Passageiro.Nome"/>
+    <span>Passageiro</span>
+    <select asp-for="Passageiro" class="form-select" name="PassageiroId" asp-items="@ViewBag.passageiros">
+        <option>Selecione</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label asp-for="Origem"></label>
+    <input asp-for="Origem" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Destino"></label>
+    <input asp-for="Destino" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Data"></label>
+    <input asp-for="Data" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="Valor"></label>
+    <input asp-for="Valor" class="form-control" />
+</div>
+<div class="mb-3">
+    <input asp-for="isFinalizada" />
+    <label asp-for="isFinalizada"></label>
+</div>

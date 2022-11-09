@@ -1,0 +1,19 @@
+﻿@model Corrida
+
+@{
+    ViewData["Title"] = "Edição de Corrida";
+}
+
+<h1>Edição de Corrida</h1>
+
+<form asp-action="editar">
+
+    <input asp-for="CorridaId" />
+
+    <partial name="_Form" />
+
+    <input type="submit" value="Editar" class="btn btn-primary" />
+
+    <a asp-action="index" asp-route-id=Corrida class="btn btn-light">Cancelar</a>
+
+</form>
