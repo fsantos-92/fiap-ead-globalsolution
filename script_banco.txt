@@ -1,0 +1,109 @@
+DROP TABLE tb_fb_corrida CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_motorista CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_motorista_ponto CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_passageiro CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_ponto_trabalho CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_telefone CASCADE CONSTRAINTS;
+
+DROP TABLE tb_fb_veiculo CASCADE CONSTRAINTS;
+
+CREATE TABLE tb_fb_corrida (
+    id_corrida     NUMBER(9) NOT NULL,
+    id_motorista   NUMBER(9) NOT NULL,
+    id_usuario     NUMBER(9) NOT NULL,
+    ds_origem      VARCHAR2(80) NOT NULL,
+    ds_destino     VARCHAR2(80) NOT NULL,
+    dt_corrida     DATE NOT NULL,
+    vl_corrida     NUMBER(7, 2) NOT NULL,
+    st_finalizado  SMALLINT NOT NULL
+);
+
+ALTER TABLE tb_fb_corrida ADD CONSTRAINT pk_tb_fb_corrida PRIMARY KEY ( id_corrida );
+
+CREATE TABLE tb_fb_motorista (
+    id_motorista  NUMBER(9) NOT NULL,
+    nm_motorista  VARCHAR2(60) NOT NULL,
+    nr_cpf        VARCHAR2(11),
+    nr_cnh        VARCHAR2(11) NOT NULL,
+    st_ativo      SMALLINT NOT NULL,
+    ds_email      VARCHAR2(30) NOT NULL,
+    ds_senha      VARCHAR2(50) NOT NULL,
+    dt_cadastro   DATE NOT NULL
+);
+
+ALTER TABLE tb_fb_motorista ADD CONSTRAINT pk_tb_fb_motorista PRIMARY KEY ( id_motorista );
+
+CREATE TABLE tb_fb_motorista_ponto (
+    id_ponto_motorista  NUMBER(9) NOT NULL,
+    id_motorista        NUMBER(9) NOT NULL,
+    id_ponto            NUMBER(9) NOT NULL
+);
+
+ALTER TABLE tb_fb_motorista_ponto ADD CONSTRAINT pk_tb_fb_motorista_ponto PRIMARY KEY ( id_ponto_motorista );
+
+CREATE TABLE tb_fb_passageiro (
+    id_usuario  NUMBER(9) NOT NULL,
+    nm_usuario  VARCHAR2(80) NOT NULL,
+    nr_cpf      VARCHAR2(11),
+    nr_rg       VARCHAR2(9) NOT NULL,
+    ds_email    VARCHAR2(50) NOT NULL,
+    ds_senha    VARCHAR2(50) NOT NULL
+);
+
+ALTER TABLE tb_fb_passageiro ADD CONSTRAINT pk_tb_fb_usuario PRIMARY KEY ( id_usuario );
+
+CREATE TABLE tb_fb_ponto_trabalho (
+    id_ponto     NUMBER(9) NOT NULL,
+    ds_nome      VARCHAR2(50) NOT NULL,
+    ds_endereco  VARCHAR2(60) NOT NULL
+);
+
+ALTER TABLE tb_fb_ponto_trabalho ADD CONSTRAINT pk_tb_fb_ponto_trabalho PRIMARY KEY ( id_ponto );
+
+CREATE TABLE tb_fb_telefone (
+    id_motorista  NUMBER(9) NOT NULL,
+    nr_ddd        NUMBER(2) NOT NULL,
+    nr_telefone   NUMBER(9) NOT NULL
+);
+
+ALTER TABLE tb_fb_telefone ADD CONSTRAINT pk_tb_fb_telefone PRIMARY KEY ( id_motorista );
+
+CREATE TABLE tb_fb_veiculo (
+    id_veiculo    NUMBER(9) NOT NULL,
+    id_motorista  NUMBER(9) NOT NULL,
+    ds_modelo     VARCHAR2(30) NOT NULL,
+    ds_ano        NUMBER(4) NOT NULL,
+    ds_cor        VARCHAR2(30) NOT NULL,
+    nr_placa      VARCHAR2(8) NOT NULL
+);
+
+ALTER TABLE tb_fb_veiculo ADD CONSTRAINT pk_tb_fb_veiculo PRIMARY KEY ( id_veiculo );
+
+ALTER TABLE tb_fb_corrida
+    ADD CONSTRAINT fk_motorista_corrida FOREIGN KEY ( id_motorista )
+        REFERENCES tb_fb_motorista ( id_motorista );
+
+ALTER TABLE tb_fb_motorista_ponto
+    ADD CONSTRAINT fk_motorista_ponto FOREIGN KEY ( id_motorista )
+        REFERENCES tb_fb_motorista ( id_motorista );
+
+ALTER TABLE tb_fb_telefone
+    ADD CONSTRAINT fk_motorista_telefone FOREIGN KEY ( id_motorista )
+        REFERENCES tb_fb_motorista ( id_motorista );
+
+ALTER TABLE tb_fb_veiculo
+    ADD CONSTRAINT fk_motorista_veiculo FOREIGN KEY ( id_motorista )
+        REFERENCES tb_fb_motorista ( id_motorista );
+
+ALTER TABLE tb_fb_motorista_ponto
+    ADD CONSTRAINT fk_ponto_motorista FOREIGN KEY ( id_ponto )
+        REFERENCES tb_fb_ponto_trabalho ( id_ponto );
+
+ALTER TABLE tb_fb_corrida
+    ADD CONSTRAINT fk_usuario_corrida FOREIGN KEY ( id_usuario )
+        REFERENCES tb_fb_passageiro ( id_usuario );
